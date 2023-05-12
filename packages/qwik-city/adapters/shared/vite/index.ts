@@ -190,6 +190,7 @@ export function viteAdapter(opts: ViteAdapterPluginOptions) {
                 clientPublicOutDir,
                 basePathname,
                 routes,
+                staticPaths,
                 warn: (message) => this.warn(message),
                 error: (message) => this.error(message),
               });
@@ -239,6 +240,7 @@ interface ViteAdapterPluginOptions {
     serverOutDir: string;
     basePathname: string;
     routes: BuildRoute[];
+    staticPaths: string[];
     warn: (message: string) => void;
     error: (message: string) => void;
   }) => Promise<void>;

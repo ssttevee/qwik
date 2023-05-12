@@ -38,14 +38,14 @@ export function cloudflarePagesAdapter(opts: CloudflarePagesAdapterOptions = {})
       };
     },
 
-    async generate({ clientOutDir, serverOutDir, basePathname }) {
+    async generate({ clientOutDir, serverOutDir, basePathname, staticPaths }) {
       const routesJsonPath = join(clientOutDir, '_routes.json');
       const hasRoutesJson = fs.existsSync(routesJsonPath);
       if (!hasRoutesJson && opts.functionRoutes !== false) {
         const routesJson = {
           version: 1,
           include: [basePathname + '*'],
-          exclude: [basePathname + 'build/*', basePathname + 'assets/*'],
+          exclude: [basePathname + 'build/*', basePathname + 'assets/*', ...staticPaths],
         };
         await fs.promises.writeFile(routesJsonPath, JSON.stringify(routesJson, undefined, 2));
       }
